@@ -21,7 +21,12 @@
 
       <template v-if="Object.keys(entry.Parameters).length > 0">
         <p class="text-h6 mt-8 mb-n2">Parameters</p>
-        <v-sheet elevation="1" rounded class="my-2 pa-2" v-if="entry.Parameters">
+        <v-sheet
+          elevation="1"
+          rounded
+          class="my-2 pa-2"
+          v-if="entry.Parameters"
+        >
           <v-simple-table dense>
             <template v-slot:default>
               <thead>
@@ -63,19 +68,19 @@
 </template>
 
 <script lang="ts">
-import { Component, Prop, Vue } from 'vue-property-decorator';
+import { Component, Prop, Vue } from "vue-property-decorator";
+
+import { MethodDefinition } from "../types";
 
 @Component({
-  components: {
-    HelpEntry,
-  },
+  components: {}
 })
 export default class HelpEntry extends Vue {
   @Prop()
-  entry: unknown;
- 
+  entry?: MethodDefinition;
+
   mounted() {
-    console.log(`Mounted ${this.entry.Name}`);
+    console.log(`Mounted ${this.entry?.Name}`);
   }
 }
 </script>
