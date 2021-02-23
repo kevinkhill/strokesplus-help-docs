@@ -64,7 +64,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
 import HelpEntry from "./components/HelpEntry.vue";
-import help from "./help.json";
+import helpDocument from "./help.json";
+import { HelpDocument, MethodDefinition } from "./types";
 
 @Component({
   components: {
@@ -79,25 +80,28 @@ export default class App extends Vue {
   rightCol = 2;
   search = null;
   caseSensitive = false;
+  help: HelpDocument = (helpDocument as unknown) as HelpDocument;
 
-  selectItem(item) {
+  selectItem(item: MethodDefinition) {
     console.log(item);
   }
 
   items() {
     let id = 1;
 
-    const sections = Object.entries(help).map(([key, section]) => {
+    const sections = Object.entries(this.help).map(([key, section]) => {
       let children = [];
-
-      if (help[key].Methods) {
-        const sectionMethods = Object.keys(help[key].Methods);
+      // @ts-expect-error
+      if (this.help[key].Methods) {
+        // @ts-expect-error
+        const sectionMethods = Object.keys(this.help[key].Methods);
 
         children = sectionMethods.map(methodName => {
           return {
             id: id++,
             name: methodName,
-            ...help[key].Methods[methodName]
+            // @ts-expect-error
+            ...this.help[key].Methods[methodName]
           };
         });
       }

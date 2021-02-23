@@ -33,6 +33,7 @@ export interface SectionDefinition extends Descriptor {
 }
 
 export interface HelpDocument {
+  // [K: string]: SectionDefinition;
   SectionScriptObjects: Descriptor & {
     [K: string]: Descriptor;
   };
