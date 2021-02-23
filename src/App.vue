@@ -86,7 +86,7 @@ export default class App extends Vue {
     console.log(item);
   }
 
-  items() {
+  get items() {
     let id = 1;
 
     const sections = Object.entries(this.help).map(([key, section]) => {
